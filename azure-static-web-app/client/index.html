@@ -73,10 +73,12 @@
             const params = new URLSearchParams(location.search);
             const rid = params.get('rid');
             const gid = params.get('gid');
+            const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
             const apiUrl = `https://busfuncapp.azurewebsites.net/api/HttpTrigger1?rid=${rid}&gid=${gid}`;
-            $.getJSON(apiUrl, data => {
-                //console.log(data);
-                plotWKT(data);                
+            const fullUrl = `${proxyUrl}${apiUrl}`;
+            $.getJSON(fullUrl, data => {
+                console.log(data);
+                plotWKT(data);
             });
         }
 
