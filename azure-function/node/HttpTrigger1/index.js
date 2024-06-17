@@ -1,6 +1,6 @@
 const sql = require('mssql');
 
-const AZURE_CONN_STRING = process.env["AzureSQLConnectionString"];
+const AZURE_CONN_STRING = "Server=tcp:bus-server545000.database.windows.net,1433;Initial Catalog=bus-db;Persist Security Info=False;User ID=bus-admin;Password=App122331;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
 
 module.exports = async function (context, req) {
     context.log('Function execution started.');
