@@ -1,7 +1,7 @@
 const fetch = require('node-fetch');
 const sql = require('mssql');
 
-const AZURE_CONN_STRING = "Server=tcp:busappserver.database.windows.net,1433;Initial Catalog=busappdb;Persist Security Info=False;User ID=artem;Password=YG22ExpZ;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
+const AZURE_CONN_STRING = "Server=tcp:bus-server545000.database.windows.net,1433;Initial Catalog=bus-db;Persist Security Info=False;User ID=bus-admin;Password=App122331;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
 const GTFS_RT_FEED = "https://s3.amazonaws.com/kcm-alerts-realtime-prod/vehiclepositions_enhanced.json";
 const LOGIC_APP_URL = process.env['LogicAppUrl'];
 
