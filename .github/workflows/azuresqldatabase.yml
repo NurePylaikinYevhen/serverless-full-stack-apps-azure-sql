@@ -11,13 +11,17 @@ on:
 
 jobs:
   deploy_database_job:
-    if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.action != 'closed')
     runs-on: windows-latest
-    name: Deploy Database Job
     steps:
-      - uses: actions/checkout@v3
-      - uses: Azure/sql-action@v1
-        with:
-          server-name: 'bus-server545000.database.windows.net'
-          connection-string: ${{ secrets.AZURE_SQL_CONNECTION_STRING }}
-          dacpac-package: './database/dacpac/bus-db.dacpac'
+    - uses: actions/checkout@v3
+    
+    - name: Azure Login
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+        
+    - uses: Azure/sql-action@v1
+      with:
+        server-name: 'bus-server545000.database.windows.net'
+        connection-string: ${{ secrets.AZURE_SQL_CONNECTION_STRING }}
+        dacpac-package: './database/dacpac/bus-db.dacpac'
