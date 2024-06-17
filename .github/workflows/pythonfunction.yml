@@ -1,7 +1,9 @@
 name: Deploy Python project to Azure Function App
 
 on:
-  [push]
+  push:
+    branches:
+      - main
 
 env:
   AZURE_FUNCTIONAPP_NAME: azbusfunc
@@ -10,9 +12,8 @@ env:
 
 jobs:
   build-and-deploy:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     steps:
-
     - name: Checkout GitHub Action
       uses: actions/checkout@v2
       with:
@@ -21,17 +22,24 @@ jobs:
     - name: Setup Python
       uses: actions/setup-python@v2
       with:
-        # Version range or exact version of a Python version to use, using SemVer's version range syntax.
         python-version: ${{ env.PYTHON_VERSION }}
+        
     - name: Install dependencies
       run: |
         python -m pip install --target=".python_packages/lib/site-packages" -r requirements.txt
-        echo "" > requirements.txt # blank out requirements.txt so it doesn't get installed again
+        echo "" > requirements.txt
       working-directory: ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}
+
+    - name: Output Environment Variables
+      run: printenv
+
+    - name: Output Working Directory
+      run: |
+        pwd
+        ls -la ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}
 
     - name: 'Run Azure Functions Action'
       uses: Azure/functions-action@v1
-      id: fa
       with:
         app-name: ${{ env.AZURE_FUNCTIONAPP_NAME }}
         package: ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}
