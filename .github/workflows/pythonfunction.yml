@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout GitHub Action
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
       with:
         submodules: true
 
@@ -37,6 +37,9 @@ jobs:
       run: |
         pwd
         ls -la ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}
+
+    - name: Debug Publish Profile
+      run: echo "${{ secrets.AZURE_FUNCTIONAPP_PUBLISH_PROFILE }}"
 
     - name: 'Run Azure Functions Action'
       uses: Azure/functions-action@v1
